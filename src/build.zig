@@ -110,18 +110,22 @@ fn compileRaylib(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.
         .linux => {
             if (!options.platform_drm) {
                 try c_source_files.append("rglfw.c");
-                raylib.linkSystemLibrary("GL");
+                raylib.linkSystemLibrary("gl");
                 raylib.linkSystemLibrary("rt");
                 raylib.linkSystemLibrary("dl");
                 raylib.linkSystemLibrary("m");
 
-                raylib.addLibraryPath(.{ .cwd_relative = "/usr/lib" });
-                raylib.addIncludePath(.{ .cwd_relative = "/usr/include" });
-
                 switch (options.linux_display_backend) {
                     .X11 => {
                         raylib.defineCMacro("_GLFW_X11", null);
-                        raylib.linkSystemLibrary("X11");
+                        raylib.linkSystemLibrary("x11");
+                        raylib.linkSystemLibrary("xcursor");
+                        raylib.linkSystemLibrary("xrender");
+                        raylib.linkSystemLibrary("xrandr");
+                        raylib.linkSystemLibrary("xinerama");
+                        raylib.linkSystemLibrary("xi");
+                        raylib.linkSystemLibrary("xext");
+                        raylib.linkSystemLibrary("xfixes");
                     },
                     .Wayland => {
                         raylib.defineCMacro("_GLFW_WAYLAND", null);
