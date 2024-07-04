@@ -153,14 +153,13 @@ fn compileRaylib(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.
                     raylib.defineCMacro("GRAPHICS_API_OPENGL_ES2", null);
                 }
 
-                raylib.linkSystemLibrary("EGL");
-                raylib.linkSystemLibrary("drm");
+                raylib.linkSystemLibrary("egl");
+                raylib.linkSystemLibrary("libdrm");
                 raylib.linkSystemLibrary("gbm");
                 raylib.linkSystemLibrary("pthread");
                 raylib.linkSystemLibrary("rt");
                 raylib.linkSystemLibrary("m");
                 raylib.linkSystemLibrary("dl");
-                raylib.addIncludePath(.{ .cwd_relative = "/usr/include/libdrm" });
 
                 raylib.defineCMacro("PLATFORM_DRM", null);
                 raylib.defineCMacro("EGL_NO_X11", null);
